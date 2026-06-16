@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terrazo — Imóveis selecionados · Demo Devan Shell Tech</title>
+<meta name="description" content="Demo de site de imobiliária — desenvolvida por Devan Shell Tech." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#fbfaf7;--surface:#fff;--ink:#172033;--ink-2:#5a6478;--ink-3:#919aac;
+    --line:#e9e6df;--navy:#1b2a44;--clay:#c4683f;--clay-d:#a8542f;--sand:#efe7da;--gold:#be9b5a;--ok:#2f9e6f;
+    --r:18px;--r-lg:28px;--sh:0 14px 40px rgba(23,32,51,.10);
+    --disp:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}a{color:inherit;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  h1,h2,h3,.disp{font-family:var(--disp);letter-spacing:-.01em;font-weight:600}
+
+  nav{position:sticky;top:0;z-index:60;background:rgba(251,250,247,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nv{display:flex;align-items:center;gap:28px;height:74px}
+  .logo{font-family:var(--disp);font-weight:700;font-size:25px;display:flex;align-items:center;gap:9px}
+  .logo .m{width:30px;height:30px;border-radius:9px;background:var(--navy);display:grid;place-items:center}
+  .logo .m::after{content:'';width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:11px solid var(--clay)}
+  .nlinks{display:flex;gap:28px;font-size:15px;font-weight:500;color:var(--ink-2);margin:0 auto 0 14px}
+  .nlinks a:hover{color:var(--ink)}
+  .nph{font-size:15px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .nbtn{background:var(--navy);color:#fff;font-size:14px;font-weight:600;padding:11px 20px;border-radius:10px;transition:.2s;cursor:pointer}
+  .nbtn:hover{background:var(--clay)}
+
+  /* hero */
+  .hero{padding:46px 0 36px}
+  .hero-card{position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:520px;display:flex;align-items:flex-end;padding:48px}
+  .hero-card::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80') center/cover}
+  .hero-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,32,51,.15),rgba(23,32,51,.78))}
+  .hero-in{position:relative;z-index:2;color:#fff;width:100%}
+  .hero .eye{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#e7d8c5;margin-bottom:16px}
+  .hero h1{font-size:clamp(40px,6vw,72px);line-height:1;font-weight:600;max-width:680px}
+  .hero h1 em{font-style:italic;color:#f0c9a8}
+  .hero p{color:#d9dde6;font-size:18px;max-width:440px;margin-top:18px}
+
+  /* search bar */
+  .search{position:relative;z-index:3;margin:-46px auto 0;max-width:1000px;background:var(--surface);border-radius:18px;box-shadow:var(--sh);border:1px solid var(--line);display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:0;padding:8px}
+  .sf{padding:14px 18px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:3px}
+  .sf label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+  .sf select,.sf input{border:0;outline:none;background:transparent;font-family:var(--sans);font-size:15px;font-weight:500;color:var(--ink);width:100%;cursor:pointer}
+  .sbtn{margin:6px;background:var(--clay);color:#fff;border:0;border-radius:12px;padding:0 28px;font-family:var(--sans);font-weight:600;font-size:15px;cursor:pointer;display:flex;align-items:center;gap:9px;transition:.2s}
+  .sbtn:hover{background:var(--clay-d)}.sbtn svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.2}
+
+  /* stats */
+  .stats{display:flex;flex-wrap:wrap;gap:50px;justify-content:center;padding:54px 0 20px}
+  .stats div{text-align:center}
+  .stats b{font-family:var(--disp);font-size:42px;font-weight:700;color:var(--navy);display:block;line-height:1}
+  .stats b span{color:var(--clay)}
+  .stats small{font-size:13px;color:var(--ink-2);letter-spacing:.04em}
+
+  /* listings */
+  .sec{padding:70px 0}
+  .sh{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+  .sh .eye{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--clay);font-weight:600;margin-bottom:10px}
+  .sh h2{font-size:clamp(30px,4vw,44px)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-size:14px;font-weight:500;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);padding:10px 18px;border-radius:30px;cursor:pointer;transition:.2s}
+  .chip:hover{border-color:var(--navy)}
+  .chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .prop{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:.25s;display:flex;flex-direction:column}
+  .prop:hover{transform:translateY(-5px);box-shadow:var(--sh);border-color:transparent}
+  .prop .ph{position:relative;aspect-ratio:3/2;overflow:hidden}
+  .prop .ph img{width:100%;height:100%;object-fit:cover;transition:.5s}
+  .prop:hover .ph img{transform:scale(1.06)}
+  .prop .deal{position:absolute;top:14px;left:14px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:6px 12px;border-radius:8px;color:#fff;background:var(--navy)}
+  .prop .deal.rent{background:var(--clay)}
+  .prop .new{position:absolute;top:14px;left:88px;font-size:11px;font-weight:700;text-transform:uppercase;padding:6px 12px;border-radius:8px;background:var(--gold);color:#fff}
+  .prop .fav{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;transition:.2s}
+  .prop .fav svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:2}
+  .prop .fav.on{background:var(--clay)}.prop .fav.on svg{stroke:#fff;fill:#fff}
+  .prop .body{padding:20px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .prop .price{font-family:var(--disp);font-size:26px;font-weight:700;color:var(--navy)}
+  .prop .price small{font-size:14px;font-weight:500;color:var(--ink-3);font-family:var(--sans)}
+  .prop h3{font-size:18px;font-weight:600}
+  .prop .loc{font-size:14px;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+  .prop .loc svg{width:15px;height:15px;stroke:var(--clay);fill:none;stroke-width:2;flex-shrink:0}
+  .prop .specs{display:flex;gap:18px;margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+  .prop .specs div{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-2);font-weight:500}
+  .prop .specs svg{width:17px;height:17px;stroke:var(--ink-3);fill:none;stroke-width:1.8}
+  .empty{grid-column:1/-1;text-align:center;color:var(--ink-2);padding:50px}
+
+  /* feature band */
+  .band{background:var(--navy);border-radius:var(--r-lg);overflow:hidden;display:grid;grid-template-columns:1.1fr 1fr;align-items:center}
+  .band .tx{padding:64px}
+  .band .eye{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--clay);font-weight:600;margin-bottom:14px}
+  .band h2{color:#fff;font-size:clamp(28px,3.6vw,44px);line-height:1.05;margin-bottom:18px}
+  .band p{color:#aeb6c6;font-size:16px;margin-bottom:24px;max-width:420px}
+  .band .pts{display:flex;flex-direction:column;gap:14px}
+  .band .pt{display:flex;gap:14px;align-items:flex-start;color:#dce0e8}
+  .band .pt .ic{width:42px;height:42px;border-radius:12px;background:rgba(196,104,63,.22);display:grid;place-items:center;flex-shrink:0}
+  .band .pt .ic svg{width:20px;height:20px;stroke:var(--clay);fill:none;stroke-width:2}
+  .band .pt b{color:#fff;font-size:15px;display:block;margin-bottom:2px}
+  .band .pt span{font-size:13px;color:#9aa3b5}
+  .band .ph{height:100%;min-height:440px;background:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80') center/cover}
+
+  /* agent CTA */
+  .agent{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:32px 40px}
+  .agent img{width:84px;height:84px;border-radius:50%;object-fit:cover}
+  .agent h3{font-size:22px}.agent p{color:var(--ink-2);font-size:15px;margin-top:4px}
+  .agent .acts{display:flex;gap:10px}
+  .agent .b1{background:var(--ok);color:#fff;font-weight:600;font-size:14px;padding:13px 22px;border-radius:11px;cursor:pointer;display:flex;align-items:center;gap:8px}
+  .agent .b2{background:var(--bg);border:1px solid var(--line);color:var(--ink);font-weight:600;font-size:14px;padding:13px 22px;border-radius:11px;cursor:pointer}
+
+  footer{background:var(--navy);color:#aeb6c6;margin-top:70px;padding:60px 0 30px}
+  .fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
+  .fg .logo{color:#fff;margin-bottom:12px}.fg .logo .m{background:rgba(255,255,255,.1)}
+  .fg p{font-size:14px;max-width:250px}
+  .fg h4{color:#fff;font-size:13px;margin-bottom:14px}.fg ul{list-style:none}.fg li{font-size:14px;margin-bottom:9px}
+  .cpr{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:22px;text-align:center;font-size:12px;color:#7c8499}
+
+  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(160%);background:var(--navy);color:#fff;padding:15px 26px;border-radius:12px;font-size:14px;font-weight:500;z-index:99;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+  .toast.on{transform:translateX(-50%) translateY(0)}
+
+  @media(max-width:920px){
+    .nlinks,.nph{display:none}
+    .search{grid-template-columns:1fr 1fr;margin-top:-30px}.sf:nth-child(2){border-right:0}.sbtn{grid-column:1/-1;padding:14px}
+    .grid{grid-template-columns:1fr 1fr}
+    .band{grid-template-columns:1fr}.band .ph{min-height:240px;order:-1}.band .tx{padding:40px 28px}
+    .agent{grid-template-columns:1fr;text-align:center}.agent img{margin:0 auto}.agent .acts{justify-content:center}
+    .fg{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+  @media(max-width:760px){.dshell-back .dshell-txt{display:none}.dshell-back{padding:9px!important}}
+</style>
+</head>
+<body>
+  <nav>
+    <div class="wrap nv">
+      <div class="nav-left" style="display:flex;align-items:center;gap:12px"><a href="/" class="dshell-back" title="Voltar ao Devan Shell Tech" aria-label="Voltar ao Devan Shell Tech" style="display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:30px;border:1px solid currentColor;color:inherit;text-decoration:none;opacity:.6;flex-shrink:0;font-size:12px;font-weight:600;letter-spacing:.02em;line-height:1;white-space:nowrap"><span style="font-size:15px">←</span><span class="dshell-txt">&nbsp;Voltar ao Devan Shell Tech</span></a><div class="logo"><span class="m"></span>Terrazo</div></div>
+      <div class="nlinks"><a href="#imoveis">Comprar</a><a href="#imoveis">Alugar</a><a href="#vantagens">Vender</a><a href="#corretor">Corretores</a></div>
+      <div class="nph">📞 (11) 4000-0000</div>
+      <div class="nbtn" onclick="document.getElementById('imoveis').scrollIntoView()">Anuncie seu imóvel</div>
+    </div>
+  </nav>
+
+  <header class="wrap hero">
+    <div class="hero-card">
+      <div class="hero-in">
+        <div class="eye">+1.200 imóveis selecionados</div>
+        <h1>Encontre o lugar<br>onde a sua <em>história</em> continua</h1>
+        <p>Curadoria de imóveis para comprar e alugar, com fotos reais e visita agendada em 1 clique.</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="search">
+      <div class="sf"><label>Localização</label><select id="f-city"><option>Qualquer cidade</option><option>São Paulo · SP</option><option>Campinas · SP</option><option>Santos · SP</option></select></div>
+      <div class="sf"><label>Tipo</label><select id="f-type"><option value="Todos">Todos os tipos</option><option>Apartamento</option><option>Casa</option><option>Cobertura</option><option>Comercial</option></select></div>
+      <div class="sf"><label>Faixa de preço</label><select><option>Qualquer valor</option><option>até R$ 500 mil</option><option>R$ 500 mil – 1 mi</option><option>acima de R$ 1 mi</option></select></div>
+      <button class="sbtn" onclick="doSearch()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>Buscar</button>
+    </div>
+  </div>
+
+  <div class="wrap stats">
+    <div><b>1.2<span>k</span></b><small>Imóveis ativos</small></div>
+    <div><b>18<span>+</span></b><small>Anos no mercado</small></div>
+    <div><b>4.9<span>★</span></b><small>Avaliação dos clientes</small></div>
+    <div><b>97<span>%</span></b><small>Visitas no prazo</small></div>
+  </div>
+
+  <section class="sec wrap" id="imoveis">
+    <div class="sh">
+      <div>
+        <div class="eye">Destaques</div>
+        <h2>Imóveis em destaque</h2>
+      </div>
+      <div class="filters" id="filters">
+        <div class="chip on" data-t="Todos">Todos</div>
+        <div class="chip" data-t="Apartamento">Apartamento</div>
+        <div class="chip" data-t="Casa">Casa</div>
+        <div class="chip" data-t="Cobertura">Cobertura</div>
+        <div class="chip" data-t="Comercial">Comercial</div>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="sec wrap" id="vantagens">
+    <div class="band">
+      <div class="tx">
+        <div class="eye">Por que a Terrazo</div>
+        <h2>Comprar imóvel sem dor de cabeça</h2>
+        <p>Da primeira visita à entrega das chaves, a gente cuida da papelada, do financiamento e da negociação por você.</p>
+        <div class="pts">
+          <div class="pt"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><div><b>Imóveis verificados</b><span>Visitamos e fotografamos cada anúncio antes de publicar.</span></div></div>
+          <div class="pt"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></div><div><b>Crédito aprovado na hora</b><span>Simulação de financiamento com os principais bancos.</span></div></div>
+          <div class="pt"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6Z"/></svg></div><div><b>Contrato 100% seguro</b><span>Assinatura digital e jurídico acompanhando tudo.</span></div></div>
+        </div>
+      </div>
+      <div class="ph"></div>
+    </div>
+  </section>
+
+  <section class="sec wrap" id="corretor">
+    <div class="agent">
+      <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=200&q=80" alt="Corretora" />
+      <div>
+        <h3>Fale com a Helena, sua corretora</h3>
+        <p>Resposta em até 10 minutos · agenda visitas no horário que você puder, presencial ou por vídeo.</p>
+      </div>
+      <div class="acts">
+        <div class="b1" onclick="toast('Demo: abrindo conversa no WhatsApp ✓')"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>WhatsApp</div>
+        <div class="b2" onclick="toast('Demo: agendamento de visita ✓')">Agendar visita</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="fg">
+        <div><div class="logo"><span class="m"></span>Terrazo</div><p>Imobiliária digital com curadoria de imóveis para morar e investir.</p></div>
+        <div><h4>Imóveis</h4><ul><li>Comprar</li><li>Alugar</li><li>Lançamentos</li><li>Comercial</li></ul></div>
+        <div><h4>Empresa</h4><ul><li>Sobre</li><li>Corretores</li><li>Trabalhe conosco</li><li>Blog</li></ul></div>
+        <div><h4>Ajuda</h4><ul><li>Central</li><li>Financiamento</li><li>Contato</li><li>Termos</li></ul></div>
+      </div>
+      <div style="text-align:center;margin-bottom:16px"><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid currentColor;border-radius:30px;font:600 13px system-ui,-apple-system,sans-serif;letter-spacing:.04em;text-decoration:none;color:inherit;opacity:.7">↑ Voltar ao topo</a></div>
+      <div class="cpr">Demo fictícia · Desenvolvido por Devan Shell Tech · devanshelltech.com.br</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const props=[
+      {t:'Apartamento',deal:'Venda',price:'R$ 890.000',title:'Apto com varanda gourmet',loc:'Vila Mariana · SP',beds:3,baths:2,area:98,img:'1545324418-cc1a3fa10c00',tag:'Novo'},
+      {t:'Casa',deal:'Venda',price:'R$ 1.450.000',title:'Casa térrea com quintal',loc:'Alto de Pinheiros · SP',beds:4,baths:3,area:220,img:'1568605114967-8130f3a36994',tag:''},
+      {t:'Cobertura',deal:'Venda',price:'R$ 2.300.000',title:'Cobertura duplex c/ piscina',loc:'Itaim Bibi · SP',beds:4,baths:4,area:310,img:'1512917774080-9991f1c4c750',tag:'Novo'},
+      {t:'Apartamento',deal:'Aluguel',price:'R$ 4.200',title:'Studio mobiliado',loc:'Pinheiros · SP',beds:1,baths:1,area:42,img:'1502672260266-1c1ef2d93688',tag:''},
+      {t:'Comercial',deal:'Aluguel',price:'R$ 9.800',title:'Sala comercial corporativa',loc:'Faria Lima · SP',beds:0,baths:2,area:140,img:'1497366754035-f200968a6e72',tag:''},
+      {t:'Casa',deal:'Venda',price:'R$ 980.000',title:'Casa em condomínio fechado',loc:'Granja Viana · SP',beds:3,baths:2,area:165,img:'1570129477492-45c003edd2be',tag:''},
+      {t:'Apartamento',deal:'Venda',price:'R$ 640.000',title:'Apto reformado 2 dorms',loc:'Perdizes · SP',beds:2,baths:1,area:68,img:'1493809842364-78817add7ffb',tag:''},
+      {t:'Cobertura',deal:'Aluguel',price:'R$ 12.500',title:'Cobertura com vista para o parque',loc:'Jardins · SP',beds:3,baths:3,area:240,img:'1600607687939-ce8a6c25118c',tag:'Novo'},
+      {t:'Comercial',deal:'Venda',price:'R$ 1.150.000',title:'Loja de rua com mezanino',loc:'Moema · SP',beds:0,baths:1,area:180,img:'1497215842964-222b430dc094',tag:''},
+    ];
+    const ico={
+      bed:'<svg viewBox="0 0 24 24"><path d="M2 17v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5M2 17h20M2 17v3M22 17v3M6 10V7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v3"/></svg>',
+      bath:'<svg viewBox="0 0 24 24"><path d="M4 12h16v4a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4Z"/><path d="M6 12V5a2 2 0 0 1 2-2 2 2 0 0 1 2 2"/><path d="M10 7h2"/></svg>',
+      area:'<svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 14h7v7h-7z"/><path d="M14 3h7v7M3 14h7v7" opacity=".5"/></svg>',
+      pin:'<svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>'
+    };
+    const grid=document.getElementById('grid');
+    const card=(p,i)=>`
+      <div class="prop">
+        <div class="ph">
+          <span class="deal ${p.deal==='Aluguel'?'rent':''}">${p.deal}</span>
+          ${p.tag?`<span class="new">${p.tag}</span>`:''}
+          <div class="fav" onclick="favs(this,event)"><svg viewBox="0 0 24 24"><path d="M20 8.4c0 5-8 10.6-8 10.6S4 13.4 4 8.4a4.4 4.4 0 0 1 8-2.5 4.4 4.4 0 0 1 8 2.5Z"/></svg></div>
+          <img src="https://images.unsplash.com/photo-${p.img}?auto=format&fit=crop&w=600&q=80" alt="${p.title}" loading="lazy" />
+        </div>
+        <div class="body">
+          <div class="price">${p.price}${p.deal==='Aluguel'?'<small>/mês</small>':''}</div>
+          <h3>${p.title}</h3>
+          <div class="loc">${ico.pin}${p.loc}</div>
+          <div class="specs">
+            ${p.beds?`<div>${ico.bed}${p.beds} ${p.beds>1?'quartos':'quarto'}</div>`:''}
+            <div>${ico.bath}${p.baths} ${p.baths>1?'banh.':'banh.'}</div>
+            <div>${ico.area}${p.area} m²</div>
+          </div>
+        </div>
+      </div>`;
+    function render(type){
+      const list=props.filter(p=>type==='Todos'||p.t===type);
+      grid.innerHTML=list.length?list.map(card).join(''):'<div class="empty">Nenhum imóvel deste tipo no momento.</div>';
+    }
+    render('Todos');
+    document.querySelectorAll('#filters .chip').forEach(c=>c.onclick=()=>{
+      document.querySelectorAll('#filters .chip').forEach(x=>x.classList.remove('on'));
+      c.classList.add('on'); render(c.dataset.t);
+    });
+    function doSearch(){
+      const type=document.getElementById('f-type').value;
+      document.querySelectorAll('#filters .chip').forEach(x=>x.classList.toggle('on',x.dataset.t===type));
+      render(type);
+      document.getElementById('imoveis').scrollIntoView();
+      toast('Busca aplicada · '+(type==='Todos'?'todos os tipos':type));
+    }
+    function favs(el,e){e.stopPropagation();el.classList.toggle('on');toast(el.classList.contains('on')?'Salvo nos favoritos ♥':'Removido dos favoritos')}
+    let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2600)}
+  </script>
+</body>
+</html>
